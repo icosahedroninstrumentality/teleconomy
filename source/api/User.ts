@@ -15,7 +15,9 @@ export default new Api<string, UserSettings>("Settings")
 		registered: Date.now(),
 	})
 })
-.endpoint("delete", async (api, db, log, username: string) => {})
+.endpoint("delete", async (api, db, log, username: string) => {
+	return await db.delete(username);
+})
 .endpoint("read", async (api, db, log, username: string) => {})
 .endpoint("export", async (api, db, log, username: string) => {})
 ;
