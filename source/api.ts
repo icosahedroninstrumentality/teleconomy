@@ -16,9 +16,9 @@ export class Api <K extends string, V> {
 
 	endpoint<N extends string, In extends any[], Out>(
 		name: N,
-		handler: (api: this, db: Database<K, V>, ...data: In) => Promise<Out>,
+		handler: (api: this, db: Database<K, V>, log: Log, ...data: In) => Promise<Out>,
 	) {
-		(this as any)[name] = (...data: In) => handler(this, this.db, ...data);
+		(this as any)[name] = (...data: In) => handler(this, this.db, this.log, ...data);
 		Api.registered.set(name, this);
 		return this as this & { [P in N]: Handler<In, Out> };
 	}
