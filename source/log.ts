@@ -16,7 +16,7 @@ export class Log {
 		logFile.write(`[${isoTime()} ${this.name}] ${type}:${message}\n`);
 	}
 
-	public info     (message: string, ...data: any[]) { this.write("INFO", format("", message, ...data))};
+	public info     (message: string, ...data: any[]) { if (Config.loglevel === "info") this.write("INFO", format("", message, ...data))};
 	public warning  (message: string, ...data: any[]) { this.write("WARNING", format("", message, ...data))};
 	public error    (message: string, ...data: any[]) { this.write("ERROR", format("", message, ...data))};
 }

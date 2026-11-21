@@ -9,7 +9,8 @@ function getEnv (code: string, label: string, required: boolean = true) {
 }
 
 export namespace Config {
-	export const database = getEnv("DATABASE","Database directory path");
-	export const logs = getEnv("LOGS","Logs directory path");
-	export const telegram = getEnv("TELEGRAM","Telegram bot token");
+	export const database = getEnv("DATABASE","Database directory path")!;
+	export const logs = getEnv("LOGS","Logs directory path")!;
+	export const telegram = getEnv("TELEGRAM","Telegram bot token")!;
+	export const loglevel = getEnv("LOGLEVEL","Logging level") ?? "info";
 }
