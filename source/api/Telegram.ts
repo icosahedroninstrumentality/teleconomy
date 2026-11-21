@@ -17,9 +17,10 @@ export class Command {
 	}
 }
 
-for (let file in await readdir(join(__dirname, "command"))) {
-	await import(join(__dirname, "command", file));
-}
+await Promise.all(
+	(await readdir(join(__dirname, "command")))
+	.map(file => import(join(__dirname, "command", file!)))
+);
 
 export class Button {
 	public static readonly registered = new Map<string, Button>();
