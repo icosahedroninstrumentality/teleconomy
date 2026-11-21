@@ -13,6 +13,5 @@ setInterval(() => {
 	]);
 }, 60*1000);
 
-bot.on("message", (msg) => {
-	Telegram.inbox(bot, msg);
-});
+bot.on("message", context => Telegram.inbox(bot, context));
+bot.on("callback_query:data", context => Telegram.callback(bot, context));
