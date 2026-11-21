@@ -46,11 +46,13 @@ export type Translated = Record<Language, string>;
 
 export default new Api("Telegram")
 .endpoint("inbox", async (api, db, log, bot: Bot, context: Context) => {
+	if (context.from!.is_bot) return;
 	for (let [name, command] of Command.registered) {
 		if (context.hasCommand(name)) command.handler(context);
 	}
 })
 .endpoint("callback", async (api, db, log, bot: Bot, context: Context) => {
+	if (context.from!.is_bot) return;
 	for (let [callback_data, button] of Button.registered) {
 		if (context.hasCallbackQuery(callback_data)) button.handler(context);
 	}
