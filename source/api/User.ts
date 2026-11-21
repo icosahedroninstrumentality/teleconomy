@@ -9,7 +9,7 @@ export interface UserSettings {
 
 export default new Api<string, UserSettings>("Settings")
 .endpoint("register", async (api, db, log, username: string) => {
-	db.set(username, {
+	await db.set(username, {
 		language: Language.English,
 		notifications: false, // be nice to users
 		registered: Date.now(),
