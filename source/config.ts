@@ -2,9 +2,9 @@ import { env } from "bun";
 
 class ConfigError extends Error {}
 
-function getEnv (code: string, label: string) {
+function getEnv (code: string, label: string, required: boolean = true) {
 	const data = env[code];
-	if (!data) throw new ConfigError(`${label} is not configured! Please set field \`${code}\` environment variable!`);
+	if (required && typeof data === "undefined") throw new ConfigError(`${label} is not configured! Please set field \`${code}\` environment variable!`);
 	return data;
 }
 
