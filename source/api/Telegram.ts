@@ -6,6 +6,19 @@ import { readdir } from "node:fs/promises";
 import type { Message } from "grammy/types";
 import { randomID, type ID } from "../identity";
 
+export class Button {
+	public static readonly registered = new Map<string, Button>();
+
+	constructor (
+		public readonly text: string,
+		public readonly style: "danger" | "success" | "primary" | undefined,
+		public readonly callback_data: string,
+		public readonly handler: (context: Context) => Promise<any>,
+	) {
+		Button.registered.set(callback_data, this);
+	}
+}
+
 export class Command {
 	public static readonly registered = new Map<string, Command>();
 
@@ -21,19 +34,6 @@ await Promise.all(
 	(await readdir(join(__dirname, "command")))
 	.map(file => import(join(__dirname, "command", file!)))
 );
-
-export class Button {
-	public static readonly registered = new Map<string, Button>();
-
-	constructor (
-		public readonly text: string,
-		public readonly style: "danger" | "success" | "primary" | undefined,
-		public readonly callback_data: string,
-		public readonly handler: (context: Context) => Promise<any>,
-	) {
-		Button.registered.set(callback_data, this);
-	}
-}
 
 export enum Language {
 	English = "en",
